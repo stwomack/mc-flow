@@ -1,0 +1,1 @@
+stream create --definition ":processedTransaction > log" --name doit --deploy
