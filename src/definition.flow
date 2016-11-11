@@ -1,1 +1,12 @@
-stream create --definition ":processedTransaction > log" --name doit --deploy
+sadmin tream create --definition ":processedTransaction > log" --name doit --deploy
+
+
+polling-trigger=trigger --cron='* * * * *' --max-messages=20 > :saveToDb
+:saveToDb > log
+
+
+
+stream create foo --definition ":someTopic > bridge | gpfdist"
+stream deploy foo --properties "app.bridge.spring.cloud.stream.kafka.bindings.output.producer.bufferSize=500"
+
+process-transactions=:processedTransaction > gpfdist --db-password=pivotal --db-user=gpmon --table=processedtransactions
